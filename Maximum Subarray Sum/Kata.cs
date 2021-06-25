@@ -1,21 +1,19 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
 
 public static class Kata
 {
   public static int MaxSequence(int[] arr)
   {
-    int result = 0;
-    for (var i = 0; i < arr.Length; i++)
+    // Kadane's algorithm
+    // See https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm
+    var result = 0;
+    var currentSum = 0;
+    foreach(var i in arr)
     {
-      for (var j = 1; j < arr.Length - i + 1; j++)
-      {
-        var subArray = new int[j];
-        Array.Copy(arr, i, subArray, 0, j);
-        result = Math.Max(result, subArray.Sum());
-      }
+      currentSum = Math.Max(0, currentSum + i);
+      result = Math.Max(result, currentSum);
     }
+
     return result;
   }
 }
